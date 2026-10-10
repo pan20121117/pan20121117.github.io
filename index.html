@@ -1,0 +1,17 @@
+html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的第一個網站</title>
+</head>
+<body>
+  <h1>哈囉！我的網站成功了 🎉</h1>
+  <p>我是國二的學生，這是我的第一個網頁。</p>
+  <p>今天日期是 <span id="today"></span></p>
+  <script>
+    document.getElementById("today").textContent = new Date().toLocaleDateString("zh-TW");
+  </script>
+</body>
+</html>
