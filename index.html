@@ -5,95 +5,393 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>我的第一個網站</title>
   <style>
-    body {
-      font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
-      background-color: #f4f6f8;
-      color: #333;
-      margin: 0;
-      padding: 40px 20px;
-    }
-    .container {
-      max-width: 700px;
-      margin: 0 auto;
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .back-link {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 12px 26px;
-      background-color: #2b6cb0;
-      color: #fff !important;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 6px;
-      transition: background-color 0.2s;
-    }
-    .back-link:hover {
-      background-color: #22558f;
-      text-decoration: none;
+    :root {
+      --blue-50:  #eef4ff;
+      --blue-100: #dbe8ff;
+      --blue-500: #3b82f6;
+      --blue-600: #2b6cb0;
+      --blue-700: #22558f;
+      --ink:      #1f2d3d;
+      --ink-soft: #5b6b7f;
+      --white:    #ffffff;
+      --shadow-sm: 0 2px 8px rgba(31, 45, 61, 0.08);
+      --shadow-md: 0 8px 24px rgba(31, 45, 61, 0.10);
+      --shadow-lg: 0 18px 48px rgba(31, 45, 61, 0.16);
     }
 
-    h1 { color: #2b6cb0; margin-top: 0; }
-    h2 { margin-top: 30px; }
-    .box {
-      background-color: #eef6ff;
-      border-left: 5px solid #2b6cb0;
-      padding: 12px 16px;
-      border-radius: 0 8px 8px 0;
-      margin: 16px 0;
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
+      color: var(--ink);
+      margin: 0;
+      padding: 48px 20px 60px;
+      min-height: 100vh;
+      background: linear-gradient(160deg, #eaf2ff 0%, #f7f9fc 45%, #eef6ff 100%);
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+      line-height: 1.75;
     }
+
+    /* 背景裝飾光暈 */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.45;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 12s ease-in-out infinite;
+    }
+    .blob-1 { width: 340px; height: 340px; background: #93c5fd; top: -110px; left: -90px; }
+    .blob-2 { width: 300px; height: 300px; background: #c4b5fd; bottom: -90px; right: -70px; animation-delay: -4s; }
+    .blob-3 { width: 240px; height: 240px; background: #7dd3fc; top: 45%; right: 18%; animation-delay: -8s; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50%      { transform: translate(22px, -26px); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* ===== 卡片主體 ===== */
+    .card {
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(8px);
+      padding: 40px 38px 34px;
+      border-radius: 22px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      animation: rise 0.6s ease both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== 抬頭 ===== */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding-bottom: 24px;
+      border-bottom: 1px dashed #dbe3ee;
+    }
+    .avatar {
+      flex: 0 0 auto;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 36px;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      box-shadow: 0 8px 20px rgba(96, 165, 250, 0.45);
+    }
+    .hero h1 {
+      margin: 0 0 4px;
+      font-size: 30px;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #2b6cb0, #7c3aed);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero .tagline {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 15px;
+    }
+
+    .intro { margin: 22px 0 0; font-size: 16px; }
+
+    /* ===== 網址小框 ===== */
+    .url-box {
+      margin-top: 18px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: linear-gradient(120deg, var(--blue-50), #f5f0ff);
+      border: 1px solid var(--blue-100);
+      font-size: 15px;
+    }
+    .url-box a {
+      color: var(--blue-600);
+      font-weight: bold;
+      text-decoration: none;
+      border-bottom: 1px dashed var(--blue-500);
+    }
+    .url-box a:hover { color: var(--blue-700); border-bottom-style: solid; }
+
+    /* ===== 標題 ===== */
+    h2 {
+      margin: 34px 0 6px;
+      font-size: 20px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    h2::before {
+      content: "";
+      width: 5px;
+      height: 22px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--blue-500), #a78bfa);
+    }
+    .section-note { margin: 0 0 14px; color: var(--ink-soft); font-size: 15px; }
+
+    /* ===== 作品卡片 ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .feature {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--white);
+      border: 1px solid #e5ecf5;
+      border-radius: 16px;
+      padding: 20px 20px 18px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+    .feature:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: #bcd4f5;
+      text-decoration: none;
+    }
+    .feature .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 27px;
+      margin-bottom: 13px;
+      background: linear-gradient(135deg, #e0ecff, #f0e7ff);
+    }
+    .feature h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature p {
+      margin: 0 0 14px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+    .url-text {
+      display: block;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #f4f7fb;
+      border: 1px solid #e8eef6;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 11.5px;
+      color: #6b7a8d;
+      word-break: break-all;
+    }
+
+    .go {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--blue-600);
+    }
+    .go span { transition: transform 0.22s ease; }
+    .feature:hover .go span { transform: translateX(4px); }
+
+    /* 小標籤 */
+    .chip {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #1d4ed8;
+      background: #dbeafe;
+      vertical-align: middle;
+    }
+    .chip-new { color: #6d28d9; background: #ede9fe; }
+
+    /* ===== 日期按鈕 ===== */
     button {
-      background-color: #2b6cb0;
+      background: linear-gradient(135deg, var(--blue-500), #7c3aed);
       color: #fff;
       border: none;
-      padding: 12px 24px;
+      padding: 13px 28px;
       font-size: 16px;
-      border-radius: 6px;
+      font-family: inherit;
+      font-weight: bold;
+      border-radius: 999px;
       cursor: pointer;
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
-    button:hover { background-color: #22558f; }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(59, 130, 246, 0.45);
+    }
+    button:active { transform: translateY(0); }
+
+    #dateArea {
+      margin-top: 14px;
+      font-size: 17px;
+      font-weight: bold;
+      color: var(--blue-600);
+      min-height: 28px;
+    }
+
+    /* ===== 學習目標 ===== */
+    .todo { list-style: none; padding: 0; margin: 14px 0 0; }
+    .todo li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 11px 14px;
+      margin-bottom: 9px;
+      border-radius: 12px;
+      background: #f7fafd;
+      border: 1px solid #eaf0f7;
+      font-size: 15px;
+    }
+    .todo li::before {
+      content: counter(todo);
+      counter-increment: todo;
+      flex: 0 0 auto;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue-500), #a78bfa);
+    }
+    .todo { counter-reset: todo; }
+
+    footer {
+      margin-top: 26px;
+      text-align: center;
+      font-size: 13px;
+      color: #8a97a8;
+    }
+
+    @media (max-width: 560px) {
+      body { padding: 24px 14px 40px; }
+      .card { padding: 28px 20px 24px; border-radius: 18px; }
+      .hero { flex-direction: column; text-align: center; gap: 12px; }
+      .hero h1 { font-size: 25px; }
+      h2 { font-size: 18px; }
+    }
   </style>
 </head>
 <body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
   <div class="container">
-    <h1>👋 歡迎來到我的網站</h1>
+    <div class="card">
 
-    <p>我是 <strong>國二學生</strong>，這是我的網站作業(國二童軍露營沒去所以在家做自主學習)我長大一定去。</p>
+      <!-- 抬頭 -->
+      <div class="hero">
+        <div class="avatar">👋</div>
+        <div>
+          <h1>歡迎來到我的網站</h1>
+          <p class="tagline">Day 1 · 我的第一個網站作業</p>
+        </div>
+      </div>
 
-    <div class="box">
-      這是我的網址：<br>
-      <a href="https://pan20121117.github.io/">https://pan20121117.github.io/</a>
+      <p class="intro">
+        我是 <strong>國二學生</strong>，這是我的網站作業
+        （國二童軍露營沒去，所以在家做自主學習，我長大一定去）。
+      </p>
+
+      <div class="url-box">
+        我的網址：<br>
+        <a href="https://pan20121117.github.io/" target="_blank" rel="noopener">https://pan20121117.github.io/</a>
+      </div>
+
+      <!-- 關於這個網站 -->
+      <h2>關於這個網站</h2>
+      <p class="section-note">
+        這個網頁使用 <strong>HTML</strong> 與 <strong>CSS</strong> 寫成，
+        架放在 <strong>GitHub Pages</strong>（免費），不用付錢也有網址可以給同學看。
+      </p>
+
+      <!-- 我的作品 -->
+      <h2>我的作品</h2>
+      <p class="section-note">目前完成的兩個小專案，點卡片就可以進去玩：</p>
+
+      <div class="grid">
+
+        <!-- 卡片 1：天氣查詢 -->
+        <a class="feature" href="https://pan20121117.github.io/weather.html">
+          <div class="icon">🌤️</div>
+          <h3>天氣查詢 <span class="chip">Day 2</span></h3>
+          <p>可以查詢台灣 22 個縣市的天氣，包含現在溫度、未來幾天的預報，資料來自免費的公開 API。</p>
+          <span class="url-text">pan20121117.github.io/weather.html</span>
+          <span class="go">前往天氣查詢 <span>→</span></span>
+        </a>
+
+        <!-- 卡片 2：AI 問答小助手 -->
+        <a class="feature" href="https://pan20121117.github.io/day3-ai-chat.html">
+          <div class="icon">🤖</div>
+          <h3>AI 問答小助手 <span class="chip chip-new">Day 3 · 新增</span></h3>
+          <p>自己做的 AI 聊天機器人，可以自由選模型、問任何問題。金鑰只存在自己的瀏覽器，不會上傳。</p>
+          <span class="url-text">pan20121117.github.io/day3-ai-chat.html</span>
+          <span class="go">開始問 AI <span>→</span></span>
+        </a>
+
+      </div>
+
+      <!-- 日期按鈕 -->
+      <h2>按一下按鈕試試看</h2>
+      <p class="section-note">這個按鈕是用 <strong>JavaScript</strong> 做的，會顯示今天的日期：</p>
+      <button onclick="showDate()">顯示今天的日期</button>
+      <p id="dateArea"></p>
+
+      <!-- 學習目標 -->
+      <h2>接下來要做什麼</h2>
+      <ul class="todo">
+        <li>把網頁變漂亮、加上圖片和動畫</li>
+        <li>加入更多免費 API（例如即時空氣品質、地震）</li>
+        <li>學會用 Git 在電腦本機管理網頁檔案</li>
+      </ul>
+
+      <footer>© 2026 我的第一個網站 · 用 HTML + CSS + JavaScript 製作</footer>
+
     </div>
-
-    <h2>關於這個網站</h2>
-    <p>這個網頁使用 <strong>HTML</strong> 寫成，架放在 <strong>GitHub Pages</strong>（免費）。</p>
-
-    <h2>按一下按鈕試試看</h2>
-    <p>按鈕是用 <strong>JavaScript</strong> 做的，會顯示今天的日期：</p>
-    <button onclick="showDate()">顯示今天的日期</button>
-    <p id="dateArea"></p>
-
-    <h2>🌤️ 天氣查詢</h2>
-    <p>這是一個免費天氣查詢工具，可以查詢台灣 22 個縣市的天氣，
-       資料來自免費的公開 API：</p>
-    <p><a class="back-link" href="weather.html">🌤️ 前往天氣查詢</a></p>
-
-    <h2>接下來要做什麼</h2>
-    <ul>
-      <li>把網頁變漂亮、加上圖片和動畫</li>
-      <li>加入更多免費 API（例如即時空氣品質、地震）</li>
-      <li>學會用 Git 在電腦本機管理網頁檔案</li>
-    </ul>
   </div>
 
   <script>
     function showDate() {
       const today = new Date();
+      const h = today.getHours();
+      const greet = h < 6 ? "晚安～現在是深夜" : h < 12 ? "早安！" : h < 18 ? "午安！" : "晚安！";
       document.getElementById("dateArea").innerHTML =
-        "今天是 " + today.getFullYear() + " 年 " +
+        greet + "今天是 " + today.getFullYear() + " 年 " +
         (today.getMonth() + 1) + " 月 " + today.getDate() + " 日";
     }
   </script>
